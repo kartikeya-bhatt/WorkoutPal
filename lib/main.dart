@@ -9,7 +9,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Flutter App',
+      title: 'WorkoutPal',
+      theme: new ThemeData(scaffoldBackgroundColor: Colors.blue),
       home: Home(),
     );
   }

@@ -8,18 +8,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  int _currentIndex = 0;
+  final List<Widget> _children = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Flutter App'),
+        title: Text('WorkoutPal'),
       ),
       bottomNavigationBar: BottomNavigationBar(
+          onTap: onTabTapped,
+          currentIndex: _currentIndex,
+          iconSize: 35,
           backgroundColor: Colors.blue,
+          selectedItemColor: Colors.yellow,
+          unselectedItemColor: Colors.white,
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          currentIndex: 0, // this will be set when a new tab is tapped
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.person),
@@ -43,5 +51,11 @@ class _HomeState extends State<Home> {
             )
           ]),
     );
+  }
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }
