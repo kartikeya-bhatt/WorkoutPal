@@ -10,8 +10,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
 
+  int _selectedIndex = 0;
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -26,9 +26,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('WorkoutPal'),
       ),
-      //body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
+          currentIndex: _selectedIndex,
           iconSize: 35,
           backgroundColor: Colors.blue,
           selectedItemColor: Colors.yellow,
