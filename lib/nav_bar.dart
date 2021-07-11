@@ -23,9 +23,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('WorkoutPal'),
-      ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
           currentIndex: _selectedIndex,
