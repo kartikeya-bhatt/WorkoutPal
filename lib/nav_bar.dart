@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'home_page.dart';
+import 'common_navigation_bar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,9 +10,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
 
-  int _currentIndex = 0;
-  final List<Widget> _children = [];
+  List<GlobalKey<NavigatorState>> _navigatorKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +26,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text('WorkoutPal'),
       ),
+      //body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
-          currentIndex: _currentIndex,
           iconSize: 35,
           backgroundColor: Colors.blue,
           selectedItemColor: Colors.yellow,
@@ -30,15 +38,13 @@ class _HomeState extends State<Home> {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                title: Text('Profile')
-            ),
+                icon: Icon(Icons.person), title: Text('Profile')),
             BottomNavigationBarItem(
               icon: new Icon(Icons.home),
               title: new Text('Home'),
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.moving),
+              icon: new Icon(Icons.trending_up),
               title: new Text('Graph'),
             ),
             BottomNavigationBarItem(
@@ -50,12 +56,25 @@ class _HomeState extends State<Home> {
               title: new Text('Exit'),
             )
           ]),
+
+      body: CommonBottomNavigationBar(
+        selectedIndex: _selectedIndex,
+        navigatorKeys: _navigatorKeys,
+        childrens: [
+          HomePage(Colors.white),
+          HomePage(Colors.deepOrange),
+          HomePage(Colors.orange),
+          HomePage(Colors.yellow),
+          HomePage(Colors.blue),
+        ],
+      ),
     );
+
   }
 
   void onTabTapped(int index) {
     setState(() {
-      _currentIndex = index;
+      _selectedIndex = index;
     });
   }
 }
