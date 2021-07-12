@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'constants.dart';
 import 'common_navigation_bar.dart';
 
 class Home extends StatefulWidget {
@@ -27,9 +28,9 @@ class _HomeState extends State<Home> {
           onTap: onTabTapped,
           currentIndex: _selectedIndex,
           iconSize: 35,
-          backgroundColor: Colors.blue,
-          selectedItemColor: Colors.yellow,
-          unselectedItemColor: Colors.white,
+          backgroundColor: blue,
+          selectedItemColor: yellow,
+          unselectedItemColor: white,
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -62,7 +63,7 @@ class _HomeState extends State<Home> {
           HomePage(Colors.deepOrange),
           HomePage(Colors.orange),
           HomePage(Colors.yellow),
-          HomePage(Colors.blue),
+          HomePage(blue),
         ],
       ),
     );
