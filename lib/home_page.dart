@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'constants.dart';
+import 'routine_page.dart';
 
 class HomePage extends StatelessWidget {
-  final Color color;
-
-  HomePage(this.color);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-          color: color,
+          color: blue,
           alignment: Alignment.center,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -38,13 +35,13 @@ class _ButtonGroupState extends State<ButtonGroup> {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CustomButton("monday"),
-            CustomButton("tuesday"),
-            CustomButton("wednesday"),
-            CustomButton("thursday"),
-            CustomButton("friday"),
-            CustomButton("saturday"),
-            CustomButton("sunday"),
+            CustomButton("Monday"),
+            CustomButton("Tuesday"),
+            CustomButton("Wednesday"),
+            CustomButton("Thursday"),
+            CustomButton("Friday"),
+            CustomButton("Saturday"),
+            CustomButton("Sunday"),
           ]),
     );
   }
@@ -55,32 +52,40 @@ class CustomButton extends StatefulWidget {
   CustomButton(this.day);
 
   @override
-  _CustomButtonState createState() => _CustomButtonState();
+  _CustomButtonState createState() => _CustomButtonState(day);
 }
 
 class _CustomButtonState extends State<CustomButton> {
+  final String day;
+  bool isHeld = false;
+
+  _CustomButtonState(this.day);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: () {
-          final snackBar = SnackBar(content: Text("Hello"));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RoutinePage(day)),
+          );
         },
-        onLongPress: () {
-          decoration:
-          BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0),
-                  spreadRadius: 2,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
-                )
-              ]);
+        onTapDown: (TapDownDetails d) {
+          setState(() {
+            isHeld = true;
+          });
+        },
+        onTapUp: (TapUpDetails d) {
+          setState(() {
+            isHeld = false;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            isHeld = false;
+          });
         },
         child: Container(
           width: MediaQuery.of(context).size.width * 0.75,
@@ -89,12 +94,16 @@ class _CustomButtonState extends State<CustomButton> {
           decoration: BoxDecoration(
               color: white,
               borderRadius: BorderRadius.circular(25.0),
+              border: Border.all(
+                color: yellow,
+                width: isHeld ? 3.0 : 0.0,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
-                  spreadRadius: 2,
+                  color: Colors.black.withOpacity(0.4),
+                  spreadRadius: 3,
                   blurRadius: 5,
-                  offset: Offset(0, 3),
+                  offset: isHeld ? Offset(0, 0) : Offset(0, 3),
                 )
               ]),
           child: FittedBox(
@@ -126,8 +135,7 @@ class Header extends StatelessWidget {
                   fontFamily: 'Ubuntu',
                 ),
                 children: <TextSpan>[
-                  TextSpan(
-                      text: 'Pal', style: TextStyle(color: yellow))
+                  TextSpan(text: 'Pal', style: TextStyle(color: yellow))
                 ]),
           ),
           Text("record your workouts...",

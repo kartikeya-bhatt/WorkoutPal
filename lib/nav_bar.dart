@@ -59,11 +59,11 @@ class _HomeState extends State<Home> {
         selectedIndex: _selectedIndex,
         navigatorKeys: _navigatorKeys,
         childrens: [
-          HomePage(Colors.white),
-          HomePage(Colors.deepOrange),
-          HomePage(Colors.orange),
-          HomePage(Colors.yellow),
-          HomePage(blue),
+          HomePage(),
+          HomePage(),
+          HomePage(),
+          HomePage(),
+          HomePage(),
         ],
       ),
     );
