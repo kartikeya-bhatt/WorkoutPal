@@ -6,7 +6,7 @@ class CommonBottomNavigationBar extends StatefulWidget {
   final List<GlobalKey<NavigatorState>> navigatorKeys;
   final List<Widget> childrens;
 
-  int _size;
+  int _size = 0;
 
   CommonBottomNavigationBar(
       {@required this.selectedIndex,
