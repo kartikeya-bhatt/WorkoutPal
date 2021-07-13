@@ -69,7 +69,7 @@ class _CustomButtonState extends State<CustomButton> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RoutinePage(day)),
+            MaterialPageRoute(builder: (context) => RoutinePage(day, streamController.stream)),
           );
         },
         onTapDown: (TapDownDetails d) {

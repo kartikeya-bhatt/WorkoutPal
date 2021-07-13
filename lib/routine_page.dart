@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,47 @@ import 'constants.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 
-class RoutinePage extends StatelessWidget {
+StreamController<int> streamController = StreamController<int>.broadcast();
+
+class RoutinePage extends StatefulWidget {
   final String day;
-  RoutinePage(this.day);
+  final Stream<int> stream;
+
+  RoutinePage(this.day, this.stream);
+
+  @override
+  _RoutinePageState createState() => _RoutinePageState();
+}
+
+class _RoutinePageState extends State<RoutinePage> {
+
+  void mySetState() {
+    if(!this.mounted)
+      return;
+    setState(() {
+      list.add(WorkoutButton());
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    widget.stream.listen((index) {
+      mySetState();
+    });
+  }
+
+  static List<WorkoutButton> list = [
+    WorkoutButton(),
+    WorkoutButton(),
+    WorkoutButton(),
+    WorkoutButton(),
+    WorkoutButton(),
+    WorkoutButton()
+  ];
+
+  static List<WorkoutButton> getButtons() {
+    return list;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +57,7 @@ class RoutinePage extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Center(child: DayHeader(day)),
+                  Center(child: DayHeader(widget.day)),
                   MyReorderableList(),
                   AddButton()
                 ])));
@@ -89,19 +128,6 @@ class _DayHeaderState extends State<DayHeader> {
   }
 }
 
-class ButtonGroup {
-  static List<WorkoutButton> getButtons() {
-    return [
-      WorkoutButton(),
-      WorkoutButton(),
-      WorkoutButton(),
-      WorkoutButton(),
-      WorkoutButton(),
-      WorkoutButton()
-    ];
-  }
-}
-
 class WorkoutButton extends StatefulWidget {
   const WorkoutButton({
     Key key,
@@ -113,7 +139,6 @@ class WorkoutButton extends StatefulWidget {
 
 class _WorkoutButtonState extends State<WorkoutButton> {
   bool isHeld = false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -197,7 +222,7 @@ class MyReorderableList extends StatefulWidget {
 }
 
 class _MyReorderableListState extends State<MyReorderableList> {
-  final List<WorkoutButton> buttons = ButtonGroup.getButtons();
+  final List<WorkoutButton> buttons = _RoutinePageState.getButtons();
 
   @override
   Widget build(BuildContext context) {
@@ -222,17 +247,46 @@ class _MyReorderableListState extends State<MyReorderableList> {
   }
 }
 
-class AddButton extends StatelessWidget {
+class AddButton extends StatefulWidget {
+  _AddButtonState createState() => _AddButtonState();
+}
+
+class _AddButtonState extends State<AddButton> {
+
+  bool isHeld = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(24.0),
-      child: Container(
-          child: Icon(
-        Icons.add_circle_outline,
-        color: yellow,
-        size: 45.0,
-      )),
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            streamController.add(1);
+          });
+        },
+        onTapDown: (TapDownDetails d) {
+          setState(() {
+            isHeld = true;
+          });
+        },
+        onTapUp: (TapUpDetails d) {
+          setState(() {
+            isHeld = false;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            isHeld = false;
+          });
+        },
+        child: Container(
+            child: Icon(
+          Icons.add_circle_outline,
+          color: isHeld ? yellow : white,
+          size: 45.0,
+        )),
+      ),
     );
   }
 }
