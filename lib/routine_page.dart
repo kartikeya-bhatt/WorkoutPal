@@ -73,6 +73,8 @@ class DayHeader extends StatefulWidget {
 }
 
 class _DayHeaderState extends State<DayHeader> {
+
+  String name = "Enter Workout Name";
   final myController = TextEditingController();
 
   @override
@@ -99,7 +101,7 @@ class _DayHeaderState extends State<DayHeader> {
               ),
             ),
             AutoSizeTextField(
-                controller: TextEditingController(text: "Enter Workout Name"),
+                controller: TextEditingController(text: name),
                 maxLines: 1,
                 minFontSize: 20,
                 cursorColor: white,
@@ -113,6 +115,7 @@ class _DayHeaderState extends State<DayHeader> {
                   errorBorder: InputBorder.none,
                 ),
                 onChanged: (text) {
+                  name = text;
                   print(text);
                 },
                 textAlign: TextAlign.center,
