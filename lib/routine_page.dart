@@ -20,7 +20,7 @@ class RoutinePage extends StatelessWidget {
                 children: <Widget>[
                   Center(child: DayHeader(day)),
                   MyReorderableList(),
-
+                  AddButton()
                 ])));
   }
 }
@@ -89,24 +89,16 @@ class _DayHeaderState extends State<DayHeader> {
   }
 }
 
-class ButtonGroup extends StatefulWidget {
-  @override
-  _ButtonGroupState createState() => _ButtonGroupState();
-}
-
-class _ButtonGroupState extends State<ButtonGroup> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            WorkoutButton(),
-            WorkoutButton(),
-            WorkoutButton(),
-            WorkoutButton()
-          ]),
-    );
+class ButtonGroup {
+  static List<WorkoutButton> getButtons() {
+    return [
+      WorkoutButton(),
+      WorkoutButton(),
+      WorkoutButton(),
+      WorkoutButton(),
+      WorkoutButton(),
+      WorkoutButton()
+    ];
   }
 }
 
@@ -165,7 +157,7 @@ class _WorkoutButtonState extends State<WorkoutButton> {
               fit: BoxFit.fitHeight,
               child: Column(children: <Widget>[
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
+                  width: MediaQuery.of(context).size.width * 0.53,
                   child: AutoSizeText("Assisted Pull Up",
                       textAlign: TextAlign.left,
                       maxLines: 1,
@@ -177,7 +169,7 @@ class _WorkoutButtonState extends State<WorkoutButton> {
                       )),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
+                  width: MediaQuery.of(context).size.width * 0.53,
                   child: AutoSizeText("2 x 12 at 20 lbs.",
                       maxFontSize: 14,
                       maxLines: 1,
@@ -194,25 +186,48 @@ class _WorkoutButtonState extends State<WorkoutButton> {
   }
 }
 
-class MyReorderableList extends StatelessWidget {
+class MyReorderableList extends StatefulWidget {
+  @override
+  _MyReorderableListState createState() => _MyReorderableListState();
+}
 
-  final List<int> _items = List<int>.generate(4, (int index) => index);
+class _MyReorderableListState extends State<MyReorderableList> {
+  final List<WorkoutButton> buttons = ButtonGroup.getButtons();
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView(
-        padding: const EdgeInsets.all(8.0),
-        children: <WorkoutButton>[
-          WorkoutButton(),
-          WorkoutButton(),
-          WorkoutButton(),
-          WorkoutButton(),
-          WorkoutButton(),
-          WorkoutButton(),
-          WorkoutButton()
-        ],
-      ),
+        child: ListView.builder(
+      itemCount: buttons.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Dismissible(
+          onDismissed: (DismissDirection direction) {
+            setState(() {
+              buttons.removeAt(index);
+            });
+          },
+          secondaryBackground: Container(),
+          background: Container(),
+          child: buttons[index],
+          key: UniqueKey(),
+          direction: DismissDirection.startToEnd,
+        );
+      },
+    ));
+  }
+}
+
+class AddButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Container(
+          child: Icon(
+        Icons.add_circle_outline,
+        color: yellow,
+        size: 45.0,
+      )),
     );
   }
 }
