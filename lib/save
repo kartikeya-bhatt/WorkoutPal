@@ -22,7 +22,7 @@ class _RoutinePageState extends State<RoutinePage> {
   void mySetState() {
     if (!this.mounted) return;
     setState(() {
-      list.add("Assisted Pull Up");
+      list.add(WorkoutButton());
     });
   }
 
@@ -34,14 +34,9 @@ class _RoutinePageState extends State<RoutinePage> {
     });
   }
 
-  static List<String> list = [
-    "Bench Press",
-    "Overhead Press",
-    "Chest Flies",
-    "Hamstring Curl"
-  ];
+  static List<WorkoutButton> list = [];
 
-  static List<String> getList() {
+  static List<WorkoutButton> getButtons() {
     return list;
   }
 
@@ -168,7 +163,7 @@ class _WorkoutButtonState extends State<WorkoutButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25.0),
@@ -191,15 +186,15 @@ class _WorkoutButtonState extends State<WorkoutButton> {
                 color: blue,
                 fontFamily: 'Ubuntu',
               )),
-         // trailing: GestureDetector(
-         //   onTapDown: (TapDownDetails d) {
-         //       _displayTextInputDialog(context);
-         //   },
-            trailing: Icon(
+          trailing: GestureDetector(
+            onTapDown: (TapDownDetails d) {
+                _displayTextInputDialog(context);
+            },
+            child: Icon(
               Icons.drag_handle,
               size: 30,
             ),
-         // ),
+          ),
         ),
       ),
     );
@@ -212,8 +207,8 @@ class MyReorderableList extends StatefulWidget {
 }
 
 class _MyReorderableListState extends State<MyReorderableList> {
-
-  final List<String> list = _RoutinePageState.getList();
+  List<int> order = [];
+  final List<WorkoutButton> buttons = _RoutinePageState.getButtons();
 
   @override
   Widget build(BuildContext context) {
@@ -223,68 +218,18 @@ class _MyReorderableListState extends State<MyReorderableList> {
         canvasColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
-      child: ReorderableListView.builder(
-          buildDefaultDragHandles: false,
-          onReorder: (int oldIndex, int newIndex) {
-          setState(() {
-            if (oldIndex < newIndex) {
-              newIndex -= 1;
-            }
-            final String item = list.removeAt(oldIndex);
-            list.insert(newIndex, item);
-          });
-        },
-        itemCount: list.length,
+      child: ListView.builder(
+        itemCount: buttons.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             onDismissed: (DismissDirection direction) {
               setState(() {
-                list.removeAt(index);
+                buttons.removeAt(index);
               });
             },
             secondaryBackground: Container(),
             background: Container(),
-            child: (
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                    ),
-                    child: ListTile(
-                      title: Text(list[index],
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 26,
-                            color: blue,
-                            fontFamily: 'Ubuntu',
-                            fontWeight: FontWeight.bold,
-                          )),
-                      subtitle: Text("2 x 12 at 20 lbs.",
-                          maxLines: 1,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: blue,
-                            fontFamily: 'Ubuntu',
-                          )),
-                      // trailing: GestureDetector(
-                      //   onTapDown: (TapDownDetails d) {
-                      //       _displayTextInputDialog(context);
-                      //   },
-                        trailing: ReorderableDragStartListener(
-                          index: index,
-                          child: Icon(
-                            Icons.drag_handle,
-                            size: 30,
-                          ),
-                        ),
-                      // ),
-                    ),
-                  ),
-                )
-            ),
+            child: buttons[index],
             key: UniqueKey(),
             direction: DismissDirection.startToEnd,
           );

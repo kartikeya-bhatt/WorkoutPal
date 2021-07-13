@@ -1,0 +1,96 @@
+class _MyReorderableListState extends State<MyReorderableList> {
+  final List<Widget> buttons = _RoutinePageState.getButtons();
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: Theme(
+      data: ThemeData(
+        canvasColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+      ),
+      child: ReorderableListView.builder(
+        buildDefaultDragHandles: false,
+        onReorder: (int oldIndex, int newIndex) {
+          setState(() {
+            if (oldIndex < newIndex) {
+              newIndex -= 1;
+            }
+            final WorkoutButton item = buttons.removeAt(oldIndex);
+            buttons.insert(newIndex, item);
+          });
+        },
+        itemCount: buttons.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Dismissible(
+            onDismissed: (DismissDirection direction) {
+              setState(() {
+                buttons.removeAt(index);
+              });
+            },
+            secondaryBackground: Container(),
+            background: Container(),
+            child: buttons[index],
+            key: UniqueKey(),
+            direction: DismissDirection.startToEnd,
+          );
+        },
+      ),
+    ));
+  }
+}
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTapDown: (TapDownDetails d) {
+          setState(() {
+            isHeld = true;
+          });
+        },
+        onTapUp: (TapUpDetails d) {
+          setState(() {
+            isHeld = false;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            isHeld = false;
+          });
+        },
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+          child: ListTile(
+            title: Text("Assisted Pull Up",
+                textAlign: TextAlign.left,
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 26,
+                  color: blue,
+                  fontFamily: 'Ubuntu',
+                  fontWeight: FontWeight.bold,
+                )),
+            subtitle: Text("2 x 12 at 20 lbs.",
+                maxLines: 1,
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: blue,
+                  fontFamily: 'Ubuntu',
+                )),
+            trailing: ReorderableDragStartListener(
+              index: index,
+              child: Icon(
+                Icons.drag_handle,
+                size: 30,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
