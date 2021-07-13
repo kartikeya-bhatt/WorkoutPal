@@ -156,25 +156,22 @@ class _WorkoutButtonState extends State<WorkoutButton> {
                   ]),
               child: SizedBox(
                 //fit: BoxFit.fitHeight,
-                child: Column(children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: SizedBox(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Column(children: <Widget>[
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Text("Assisted Pull Up",
                           textAlign: TextAlign.left,
                           maxLines: 1,
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 26,
                             color: blue,
                             fontFamily: 'Ubuntu',
                             fontWeight: FontWeight.bold,
                           )),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: SizedBox(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: Text("2 x 12 at 20 lbs.",
                           maxLines: 1,
@@ -184,9 +181,9 @@ class _WorkoutButtonState extends State<WorkoutButton> {
                             color: blue,
                             fontFamily: 'Ubuntu',
                           )),
-                    ),
-                  )
-                ]),
+                    )
+                  ]),
+                ),
               ),
             ),
           ),
