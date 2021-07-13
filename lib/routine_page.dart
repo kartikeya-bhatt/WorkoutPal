@@ -134,52 +134,60 @@ class _WorkoutButtonState extends State<WorkoutButton> {
               isHeld = false;
             });
           },
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: MediaQuery.of(context).size.height * 0.09,
-            padding: EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-                color: white,
-                borderRadius: BorderRadius.circular(25.0),
-                border: Border.all(
-                  color: yellow,
-                  width: isHeld ? 3.0 : 0.0,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    offset: isHeld ? Offset(0, 0) : Offset(0, 3),
+          child: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.9,
+              height: MediaQuery.of(context).size.height * 0.09,
+              padding: EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                  color: white,
+                  borderRadius: BorderRadius.circular(25.0),
+                  border: Border.all(
+                    color: yellow,
+                    width: isHeld ? 3.0 : 0.0,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      spreadRadius: 3,
+                      blurRadius: 4,
+                      offset: isHeld ? Offset(0, 0) : Offset(0, 3),
+                    )
+                  ]),
+              child: SizedBox(
+                //fit: BoxFit.fitHeight,
+                child: Column(children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text("Assisted Pull Up",
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          style: TextStyle(
+                            fontSize: 28,
+                            color: blue,
+                            fontFamily: 'Ubuntu',
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Text("2 x 12 at 20 lbs.",
+                          maxLines: 1,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: blue,
+                            fontFamily: 'Ubuntu',
+                          )),
+                    ),
                   )
                 ]),
-            child: FittedBox(
-              fit: BoxFit.fitHeight,
-              child: Column(children: <Widget>[
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.53,
-                  child: AutoSizeText("Assisted Pull Up",
-                      textAlign: TextAlign.left,
-                      maxLines: 1,
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: blue,
-                        fontFamily: 'Ubuntu',
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.53,
-                  child: AutoSizeText("2 x 12 at 20 lbs.",
-                      maxFontSize: 14,
-                      maxLines: 1,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        color: blue,
-                        fontFamily: 'Ubuntu',
-                      )),
-                )
-              ]),
+              ),
             ),
           ),
         ));
