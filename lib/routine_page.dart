@@ -191,15 +191,15 @@ class _WorkoutButtonState extends State<WorkoutButton> {
                 color: blue,
                 fontFamily: 'Ubuntu',
               )),
-         // trailing: GestureDetector(
-         //   onTapDown: (TapDownDetails d) {
-         //       _displayTextInputDialog(context);
-         //   },
-            trailing: Icon(
-              Icons.drag_handle,
-              size: 30,
-            ),
-         // ),
+          // trailing: GestureDetector(
+          //   onTapDown: (TapDownDetails d) {
+          //       _displayTextInputDialog(context);
+          //   },
+          trailing: Icon(
+            Icons.drag_handle,
+            size: 30,
+          ),
+          // ),
         ),
       ),
     );
@@ -212,8 +212,109 @@ class MyReorderableList extends StatefulWidget {
 }
 
 class _MyReorderableListState extends State<MyReorderableList> {
-
   final List<String> list = _RoutinePageState.getList();
+  TextEditingController _textFieldControllerRep = TextEditingController(text: "0");
+  TextEditingController _textFieldControllerSet = TextEditingController(text: "0");
+  TextEditingController _textFieldControllerWeight = TextEditingController(text: "0");
+
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Edit Workout Demo',
+              textAlign: TextAlign.center,
+            ),
+            content: Container(
+              height: MediaQuery.of(context).size.height * 0.2,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text('Sets'),
+                      Expanded(
+                        child: TextFormField(
+                          textAlign: TextAlign.end,
+                          onChanged: (value) {
+                            setState(() {
+                              print(value);
+                            });
+                          },
+                          controller: _textFieldControllerSet,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text('Reps'),
+                      Expanded(
+                        child: TextFormField(
+                          textAlign: TextAlign.end,
+                          onChanged: (value) {
+                            setState(() {
+                              print(value);
+                            });
+                          },
+                          controller: _textFieldControllerRep,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Text('Weight'),
+                      Expanded(
+                        child: TextFormField(
+                          textAlign: TextAlign.end,
+                          onChanged: (value) {
+                            setState(() {
+                              print(value);
+                            });
+                          },
+                          controller: _textFieldControllerWeight,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('CANCEL'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,8 +325,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
         shadowColor: Colors.transparent,
       ),
       child: ReorderableListView.builder(
-          buildDefaultDragHandles: false,
-          onReorder: (int oldIndex, int newIndex) {
+        buildDefaultDragHandles: false,
+        onReorder: (int oldIndex, int newIndex) {
           setState(() {
             if (oldIndex < newIndex) {
               newIndex -= 1;
@@ -244,46 +345,50 @@ class _MyReorderableListState extends State<MyReorderableList> {
             },
             secondaryBackground: Container(),
             background: Container(),
-            child: (
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25.0),
-                    ),
-                    child: ListTile(
-                      title: Text(list[index],
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          style: TextStyle(
-                            fontSize: 26,
-                            color: blue,
-                            fontFamily: 'Ubuntu',
-                            fontWeight: FontWeight.bold,
-                          )),
-                      subtitle: Text("2 x 12 at 20 lbs.",
-                          maxLines: 1,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: blue,
-                            fontFamily: 'Ubuntu',
-                          )),
-                      // trailing: GestureDetector(
-                      //   onTapDown: (TapDownDetails d) {
-                      //       _displayTextInputDialog(context);
-                      //   },
-                        trailing: ReorderableDragStartListener(
-                          index: index,
-                          child: Icon(
+            child: GestureDetector(
+              onTap: () {
+                _displayTextInputDialog(context);
+              },
+              child: (Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
+                  child: ListTile(
+                    title: Text(list[index],
+                        textAlign: TextAlign.left,
+                        maxLines: 1,
+                        style: TextStyle(
+                          fontSize: 26,
+                          color: blue,
+                          fontFamily: 'Ubuntu',
+                          fontWeight: FontWeight.bold,
+                        )),
+                    subtitle: Text("2 x 12 at 20 lbs.",
+                        maxLines: 1,
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: blue,
+                          fontFamily: 'Ubuntu',
+                        )),
+                    trailing: !mounted
+                        ? Icon(
                             Icons.drag_handle,
                             size: 30,
+                          )
+                        : ReorderableDragStartListener(
+                            index: index,
+                            child: Icon(
+                              Icons.drag_handle,
+                              size: 30,
+                            ),
                           ),
-                        ),
-                      // ),
-                    ),
+                    // ),
                   ),
-                )
+                ),
+              )),
             ),
             key: UniqueKey(),
             direction: DismissDirection.startToEnd,
