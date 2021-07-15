@@ -213,9 +213,12 @@ class MyReorderableList extends StatefulWidget {
 
 class _MyReorderableListState extends State<MyReorderableList> {
   final List<String> list = _RoutinePageState.getList();
-  TextEditingController _textFieldControllerRep = TextEditingController(text: "0");
-  TextEditingController _textFieldControllerSet = TextEditingController(text: "0");
-  TextEditingController _textFieldControllerWeight = TextEditingController(text: "0");
+  TextEditingController _textFieldControllerRep =
+      TextEditingController(text: "0");
+  TextEditingController _textFieldControllerSet =
+      TextEditingController(text: "0");
+  TextEditingController _textFieldControllerWeight =
+      TextEditingController(text: "0");
 
   Future<void> _displayTextInputDialog(BuildContext context) async {
     return showDialog(
@@ -224,6 +227,10 @@ class _MyReorderableListState extends State<MyReorderableList> {
           return AlertDialog(
             title: Text(
               'Edit Workout Demo',
+              style: TextStyle(
+                fontSize: 24  ,
+                fontFamily: 'Ubuntu',
+              ),
               textAlign: TextAlign.center,
             ),
             content: Container(
@@ -232,10 +239,21 @@ class _MyReorderableListState extends State<MyReorderableList> {
                 children: [
                   Row(
                     children: [
-                      Text('Sets'),
+                      Text('Sets:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Ubuntu',
+                          )),
                       Expanded(
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(3)],
                           textAlign: TextAlign.end,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Ubuntu',
+                          ),
                           onChanged: (value) {
                             setState(() {
                               print(value);
@@ -243,6 +261,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           },
                           controller: _textFieldControllerSet,
                           decoration: InputDecoration(
+                            counterText: '',
+                            counterStyle: TextStyle(fontSize: 0),
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
@@ -255,9 +275,21 @@ class _MyReorderableListState extends State<MyReorderableList> {
                   ),
                   Row(
                     children: [
-                      Text('Reps'),
+                      Text('Reps:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Ubuntu',
+                          )),
                       Expanded(
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(3)],
+                          maxLength: 3,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Ubuntu',
+                          ),
                           textAlign: TextAlign.end,
                           onChanged: (value) {
                             setState(() {
@@ -266,6 +298,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           },
                           controller: _textFieldControllerRep,
                           decoration: InputDecoration(
+                            counterText: '',
+                            counterStyle: TextStyle(fontSize: 0),
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
@@ -278,9 +312,21 @@ class _MyReorderableListState extends State<MyReorderableList> {
                   ),
                   Row(
                     children: [
-                      Text('Weight'),
+                      Text('Weight:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Ubuntu',
+                          )),
                       Expanded(
                         child: TextFormField(
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(3)],
+                          maxLength: 3,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Ubuntu',
+                          ),
                           textAlign: TextAlign.end,
                           onChanged: (value) {
                             setState(() {
@@ -289,6 +335,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           },
                           controller: _textFieldControllerWeight,
                           decoration: InputDecoration(
+                            counterText: '',
+                            counterStyle: TextStyle(fontSize: 0),
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             enabledBorder: InputBorder.none,
@@ -303,6 +351,14 @@ class _MyReorderableListState extends State<MyReorderableList> {
               ),
             ),
             actions: <Widget>[
+              TextButton(
+                child: Text('ACCEPT'),
+                onPressed: () {
+                  setState(() {
+                    Navigator.pop(context);
+                  });
+                },
+              ),
               TextButton(
                 child: Text('CANCEL'),
                 onPressed: () {
