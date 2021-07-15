@@ -212,6 +212,7 @@ class MyReorderableList extends StatefulWidget {
 }
 
 class _MyReorderableListState extends State<MyReorderableList> {
+
   final List<String> list = _RoutinePageState.getList();
   TextEditingController _textFieldControllerRep =
       TextEditingController(text: "0");
@@ -219,14 +220,34 @@ class _MyReorderableListState extends State<MyReorderableList> {
       TextEditingController(text: "0");
   TextEditingController _textFieldControllerWeight =
       TextEditingController(text: "0");
+  TextEditingController _textFieldControllerName =
+      TextEditingController(text: "Enter Workout Name");
+  String name;
 
-  Future<void> _displayTextInputDialog(BuildContext context) async {
+
+  Future<void> _displayTextInputDialog(BuildContext context, int index) async {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(
-              'Edit Workout Demo',
+            title: TextFormField(
+              inputFormatters: [LengthLimitingTextInputFormatter(20)],
+              controller: _textFieldControllerName,
+              onChanged: (value) {
+                setState(() {
+                  name = value;
+                  print(value);
+                });
+              },
+              decoration: InputDecoration(
+                counterText: '',
+                counterStyle: TextStyle(fontSize: 0),
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+              ),
               style: TextStyle(
                 fontSize: 24  ,
                 fontFamily: 'Ubuntu',
@@ -355,6 +376,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                 child: Text('ACCEPT'),
                 onPressed: () {
                   setState(() {
+                    if(name != null)
+                      list[index] = name;
                     Navigator.pop(context);
                   });
                 },
@@ -403,7 +426,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
             background: Container(),
             child: GestureDetector(
               onTap: () {
-                _displayTextInputDialog(context);
+                _displayTextInputDialog(context, index);
               },
               child: (Padding(
                 padding: const EdgeInsets.all(8.0),
