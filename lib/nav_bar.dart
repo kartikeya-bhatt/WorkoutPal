@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'constants.dart';
 import 'common_navigation_bar.dart';
+import 'login_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -36,22 +37,24 @@ class _HomeState extends State<Home> {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.person), title: Text('Profile')),
+                icon: Icon(Icons.person),
+              title: Text('NA'),
+            ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.home),
-              title: new Text('Home'),
+              title: Text('NA'),
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.trending_up),
-              title: new Text('Graph'),
+              title: Text('NA'),
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.timer),
-              title: new Text('Timer'),
+              title: Text('NA'),
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.exit_to_app),
-              title: new Text('Exit'),
+              title: Text('NA'),
             )
           ]),
 
@@ -59,7 +62,7 @@ class _HomeState extends State<Home> {
         selectedIndex: _selectedIndex,
         navigatorKeys: _navigatorKeys,
         childrens: [
-          HomePage(),
+          CreateAccount(),
           HomePage(),
           HomePage(),
           HomePage(),
