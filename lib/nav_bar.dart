@@ -3,6 +3,7 @@ import 'home_page.dart';
 import 'constants.dart';
 import 'common_navigation_bar.dart';
 import 'login_page.dart';
+import 'User.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,7 +14,30 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  int _selectedIndex = 0;
+    List<Day> days = [];
+    final List<String> dayNames = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+
+    User myUser;
+    int _selectedIndex = 0;
+
+    _HomeState () {
+      for(String name in dayNames) {
+        List<Exercise> exercises = [];
+        days.add(new Day(name, exercises));
+      }
+
+      myUser = new User("", "", days);
+    }
+
+
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -37,7 +61,7 @@ class _HomeState extends State<Home> {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.person),
+              icon: Icon(Icons.person),
               title: Text('NA'),
             ),
             BottomNavigationBarItem(
@@ -57,20 +81,18 @@ class _HomeState extends State<Home> {
               title: Text('NA'),
             )
           ]),
-
       body: CommonBottomNavigationBar(
         selectedIndex: _selectedIndex,
         navigatorKeys: _navigatorKeys,
         childrens: [
           CreateAccount(),
-          HomePage(),
-          HomePage(),
-          HomePage(),
-          HomePage(),
+          HomePage(myUser),
+          HomePage(myUser),
+          HomePage(myUser),
+          HomePage(myUser),
         ],
       ),
     );
-
   }
 
   void onTabTapped(int index) {

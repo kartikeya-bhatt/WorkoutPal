@@ -1,9 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/User.dart';
 import 'constants.dart';
 import 'routine_page.dart';
 
 class HomePage extends StatelessWidget {
+
+  User myUser;
+  List<Day> days;
+  HomePage(this.myUser) {
+    days = myUser.days;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,7 +24,7 @@ class HomePage extends StatelessWidget {
                 Spacer(),
                 Center(child: Header()),
                 Spacer(),
-                Center(child: ButtonGroup()),
+                Center(child: ButtonGroup(days)),
                 Spacer()
               ])),
     );
@@ -24,6 +32,9 @@ class HomePage extends StatelessWidget {
 }
 
 class ButtonGroup extends StatefulWidget {
+  final List<Day> days;
+  ButtonGroup(this.days);
+
   @override
   _ButtonGroupState createState() => _ButtonGroupState();
 }
@@ -35,20 +46,20 @@ class _ButtonGroupState extends State<ButtonGroup> {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CustomButton("Monday"),
-            CustomButton("Tuesday"),
-            CustomButton("Wednesday"),
-            CustomButton("Thursday"),
-            CustomButton("Friday"),
-            CustomButton("Saturday"),
-            CustomButton("Sunday"),
+            CustomButton(widget.days[0]),
+            CustomButton(widget.days[1]),
+            CustomButton(widget.days[2]),
+            CustomButton(widget.days[3]),
+            CustomButton(widget.days[4]),
+            CustomButton(widget.days[5]),
+            CustomButton(widget.days[6]),
           ]),
     );
   }
 }
 
 class CustomButton extends StatefulWidget {
-  final String day;
+  final Day day;
   CustomButton(this.day);
 
   @override
@@ -56,10 +67,10 @@ class CustomButton extends StatefulWidget {
 }
 
 class _CustomButtonState extends State<CustomButton> {
-  final String day;
-  bool isHeld = false;
-
+  final Day day;
   _CustomButtonState(this.day);
+
+  bool isHeld = false;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +119,7 @@ class _CustomButtonState extends State<CustomButton> {
               ]),
           child: FittedBox(
               fit: BoxFit.fitHeight,
-              child: Text(widget.day,
+              child: Text(day.dayName,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: blue,
