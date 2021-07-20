@@ -42,7 +42,6 @@ class _HomeState extends State<Home> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>()
   ];
 
@@ -60,10 +59,6 @@ class _HomeState extends State<Home> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text('NA'),
-            ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.home),
               title: Text('NA'),
@@ -85,7 +80,6 @@ class _HomeState extends State<Home> {
         selectedIndex: _selectedIndex,
         navigatorKeys: _navigatorKeys,
         childrens: [
-          CreateAccount(),
           HomePage(myUser),
           HomePage(myUser),
           HomePage(myUser),
