@@ -255,7 +255,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
               textAlign: TextAlign.center,
             ),
             content: Container(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.25,
               child: Column(
                 children: [
                   Row(

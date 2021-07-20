@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/make_account.dart';
 import 'home_page.dart';
 import 'constants.dart';
 import 'common_navigation_bar.dart';
 import 'login_page.dart';
+import 'package:frontend/stopwatch.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -29,7 +31,7 @@ class _HomeState extends State<Home> {
           onTap: onTabTapped,
           currentIndex: _selectedIndex,
           iconSize: 35,
-          backgroundColor: blue,
+          backgroundColor: Color(0xFF398AE5),
           selectedItemColor: yellow,
           unselectedItemColor: white,
           type: BottomNavigationBarType.fixed,
@@ -64,7 +66,7 @@ class _HomeState extends State<Home> {
         childrens: [
           CreateAccount(),
           HomePage(),
-          HomePage(),
+          StopWatch(),
           HomePage(),
           HomePage(),
         ],
