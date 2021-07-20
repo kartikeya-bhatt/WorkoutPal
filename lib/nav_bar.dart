@@ -61,6 +61,10 @@ class _HomeState extends State<Home> {
           showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
+              icon: new Icon(Icons.person),
+              title: Text('NA'),
+            ),
+            BottomNavigationBarItem(
               icon: new Icon(Icons.home),
               title: Text('NA'),
             ),
@@ -70,10 +74,6 @@ class _HomeState extends State<Home> {
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.timer),
-              title: Text('NA'),
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.exit_to_app),
               title: Text('NA'),
             )
           ]),
