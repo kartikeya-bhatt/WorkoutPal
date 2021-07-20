@@ -5,24 +5,36 @@ import 'package:flutter/material.dart';
 import 'constants.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
+import 'User.dart';
 
 StreamController<int> streamController = StreamController<int>.broadcast();
 
 class RoutinePage extends StatefulWidget {
-  final String day;
+  final Day day;
   final Stream<int> stream;
+
 
   RoutinePage(this.day, this.stream);
 
+  List<Exercise> getList() {
+    return day.exercises;
+  }
+
   @override
-  _RoutinePageState createState() => _RoutinePageState();
+  _RoutinePageState createState() => _RoutinePageState(getList());
 }
 
 class _RoutinePageState extends State<RoutinePage> {
+
+  final List<Exercise> list;
+  _RoutinePageState(this.list);
+
   void mySetState() {
     if (!this.mounted) return;
     setState(() {
-      list.add("Assisted Pull Up");
+      list.add(
+        new Exercise("Empty Workout", 0, 0, 0),
+      );
     });
   }
 
@@ -32,17 +44,6 @@ class _RoutinePageState extends State<RoutinePage> {
     widget.stream.listen((index) {
       mySetState();
     });
-  }
-
-  static List<String> list = [
-    "Bench Press",
-    "Overhead Press",
-    "Chest Flies",
-    "Hamstring Curl"
-  ];
-
-  static List<String> getList() {
-    return list;
   }
 
   @override
@@ -55,28 +56,34 @@ class _RoutinePageState extends State<RoutinePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Center(child: DayHeader(widget.day)),
-                  MyReorderableList(),
+                  MyReorderableList(list),
                   AddButton()
                 ])));
   }
 }
 
 class DayHeader extends StatefulWidget {
-  final String day;
+  final Day day;
   DayHeader(this.day);
 
   @override
-  _DayHeaderState createState() => _DayHeaderState();
+  _DayHeaderState createState() => _DayHeaderState(day);
 }
 
 class _DayHeaderState extends State<DayHeader> {
-  String name = "Enter Workout Name";
-  final myController = TextEditingController();
 
-  @override
-  void dispose() {
-    myController.dispose();
-    super.dispose();
+  String dayName;
+  String workoutName;
+
+  TextEditingController textFieldController;
+
+  final Day day;
+  _DayHeaderState(this.day) {
+    dayName = day.dayName;
+    workoutName = day.workoutName;
+
+    textFieldController =
+    TextEditingController(text: workoutName);
   }
 
   Widget build(BuildContext context) {
@@ -88,7 +95,7 @@ class _DayHeaderState extends State<DayHeader> {
             RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: widget.day,
+                text: dayName,
                 style: TextStyle(
                   fontSize: 50,
                   color: white,
@@ -97,7 +104,7 @@ class _DayHeaderState extends State<DayHeader> {
               ),
             ),
             AutoSizeTextField(
-                controller: TextEditingController(text: name),
+                controller: TextEditingController(text: workoutName),
                 maxLines: 1,
                 minFontSize: 20,
                 cursorColor: white,
@@ -111,7 +118,8 @@ class _DayHeaderState extends State<DayHeader> {
                   errorBorder: InputBorder.none,
                 ),
                 onChanged: (text) {
-                  name = text;
+                  workoutName = text;
+                  day.setWorkoutName(text);
                   print(text);
                 },
                 textAlign: TextAlign.center,
@@ -127,105 +135,37 @@ class _DayHeaderState extends State<DayHeader> {
   }
 }
 
-class WorkoutButton extends StatefulWidget {
-  @override
-  _WorkoutButtonState createState() => _WorkoutButtonState();
-}
-
-class _WorkoutButtonState extends State<WorkoutButton> {
-  TextEditingController _textFieldController = TextEditingController();
-  Future<void> _displayTextInputDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-              title: Text('TextField in Dialog'),
-              content: TextField(
-                onChanged: (value) {
-                  setState(() {
-                    print(value);
-                  });
-                },
-                controller: _textFieldController,
-                decoration: InputDecoration(hintText: "Text Field in Dialog"),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  style: TextButton.styleFrom(
-                    primary: blue,
-                  ),
-                  child: Text('CANCEL'),
-                  onPressed: () {
-                    setState(() {
-                      Navigator.pop(context);
-                    });
-                  },
-                ),
-              ]);
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25.0),
-        ),
-        child: ListTile(
-          title: Text("Assisted Pull Up",
-              textAlign: TextAlign.left,
-              maxLines: 1,
-              style: TextStyle(
-                fontSize: 26,
-                color: blue,
-                fontFamily: 'Ubuntu',
-                fontWeight: FontWeight.bold,
-              )),
-          subtitle: Text("2 x 12 at 20 lbs.",
-              maxLines: 1,
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 20,
-                color: blue,
-                fontFamily: 'Ubuntu',
-              )),
-          // trailing: GestureDetector(
-          //   onTapDown: (TapDownDetails d) {
-          //       _displayTextInputDialog(context);
-          //   },
-          trailing: Icon(
-            Icons.drag_handle,
-            size: 30,
-          ),
-          // ),
-        ),
-      ),
-    );
-  }
-}
-
 class MyReorderableList extends StatefulWidget {
+  final List<Exercise> list;
+  MyReorderableList(this.list);
+
   @override
-  _MyReorderableListState createState() => _MyReorderableListState();
+  _MyReorderableListState createState() => _MyReorderableListState(list);
 }
 
 class _MyReorderableListState extends State<MyReorderableList> {
 
-  final List<String> list = _RoutinePageState.getList();
-  TextEditingController _textFieldControllerRep =
-      TextEditingController(text: "0");
-  TextEditingController _textFieldControllerSet =
-      TextEditingController(text: "0");
-  TextEditingController _textFieldControllerWeight =
-      TextEditingController(text: "0");
-  TextEditingController _textFieldControllerName =
-      TextEditingController(text: "Enter Workout Name");
-  String name;
+  final List<Exercise> list;
+  _MyReorderableListState(this.list);
 
 
   Future<void> _displayTextInputDialog(BuildContext context, int index) async {
+    String name = list[index].name;
+    int reps = list[index].reps;
+    int sets = list[index].sets;
+    int weight = list[index].weight;
+
+    TextEditingController _textFieldControllerName =
+    TextEditingController(text: name);
+    TextEditingController _textFieldControllerRep =
+    TextEditingController(text: reps.toString());
+    TextEditingController _textFieldControllerSet =
+    TextEditingController(text: sets.toString());
+    TextEditingController _textFieldControllerWeight =
+    TextEditingController(text: weight.toString());
+
+    bool isChanged = false;
+
     return showDialog(
         context: context,
         builder: (context) {
@@ -235,7 +175,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
               controller: _textFieldControllerName,
               onChanged: (value) {
                 setState(() {
-                  name = value;
+                  name = value.trim();
+                  isChanged = true;
                   print(value);
                 });
               },
@@ -277,6 +218,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           ),
                           onChanged: (value) {
                             setState(() {
+                              sets = int.parse(value);
+                              isChanged = true;
                               print(value);
                             });
                           },
@@ -314,6 +257,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           textAlign: TextAlign.end,
                           onChanged: (value) {
                             setState(() {
+                              reps = int.parse(value);
+                              isChanged = true;
                               print(value);
                             });
                           },
@@ -351,6 +296,8 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           textAlign: TextAlign.end,
                           onChanged: (value) {
                             setState(() {
+                              weight = int.parse(value);
+                              isChanged = true;
                               print(value);
                             });
                           },
@@ -376,8 +323,9 @@ class _MyReorderableListState extends State<MyReorderableList> {
                 child: Text('ACCEPT'),
                 onPressed: () {
                   setState(() {
-                    if(name != null)
-                      list[index] = name;
+                    if(isChanged) {
+                      list[index] = new Exercise(name, reps, sets, weight);
+                    }
                     Navigator.pop(context);
                   });
                 },
@@ -410,7 +358,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
             if (oldIndex < newIndex) {
               newIndex -= 1;
             }
-            final String item = list.removeAt(oldIndex);
+            final Exercise item = list.removeAt(oldIndex);
             list.insert(newIndex, item);
           });
         },
@@ -435,7 +383,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                     borderRadius: BorderRadius.circular(25.0),
                   ),
                   child: ListTile(
-                    title: Text(list[index],
+                    title: Text(list[index].name,
                         textAlign: TextAlign.left,
                         maxLines: 1,
                         style: TextStyle(
@@ -444,7 +392,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           fontFamily: 'Ubuntu',
                           fontWeight: FontWeight.bold,
                         )),
-                    subtitle: Text("2 x 12 at 20 lbs.",
+                    subtitle: Text(list[index].sets.toString() + " x " + list[index].reps.toString() + " at " + list[index].weight.toString() + " lbs.",
                         maxLines: 1,
                         textAlign: TextAlign.left,
                         style: TextStyle(
