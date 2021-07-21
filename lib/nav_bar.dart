@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'home_page.dart';
 import 'constants.dart';
 import 'common_navigation_bar.dart';
 import 'login_page.dart';
 import 'User.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
   @override
@@ -13,30 +16,38 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  User user;
+  Future<User> futureUser;
 
-    List<Day> days = [];
-    final List<String> dayNames = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ];
+  List<Day> days = [];
+  final List<String> dayNames = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ];
 
-    User myUser;
-    int _selectedIndex = 0;
+  User myUser;
+  int _selectedIndex = 0;
 
-    _HomeState () {
-      for(String name in dayNames) {
-        List<Exercise> exercises = [];
-        days.add(new Day(name, exercises));
-      }
+  void initState() {
+    futureUser = fetchUser();
+    futureUser.then((result) {
+      setState(() {
+        user = result;
+      });
+    });
 
-      myUser = new User("", "", days);
+    for (String name in dayNames) {
+      List<Exercise> exercises = [];
+      days.add(new Day(name, exercises));
     }
 
+    myUser = new User("", "", days);
+  }
 
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
@@ -45,9 +56,22 @@ class _HomeState extends State<Home> {
     GlobalKey<NavigatorState>()
   ];
 
+  Future<User> fetchUser() async {
+    var url = Uri.parse('http://10.0.2.2:8080/login');
+    final response = await http.post(
+      url,
+      body: json.encode({'username': 'cool_guy', 'password': 'password'}),
+      headers: {
+        "content-type": "application/json",
+        "accept": "application/json",
+      },
+    );
+
+    return User.fromJson(jsonDecode(response.body));
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           onTap: onTabTapped,
@@ -77,15 +101,26 @@ class _HomeState extends State<Home> {
               title: Text('NA'),
             )
           ]),
-      body: CommonBottomNavigationBar(
-        selectedIndex: _selectedIndex,
-        navigatorKeys: _navigatorKeys,
-        childrens: [
-          HomePage(myUser),
-          HomePage(myUser),
-          HomePage(myUser),
-          HomePage(myUser),
-        ],
+      body: FutureBuilder<User>(
+        future: futureUser,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return CommonBottomNavigationBar(
+              selectedIndex: _selectedIndex,
+              navigatorKeys: _navigatorKeys,
+              childrens: [
+                HomePage(user),
+                HomePage(user),
+                HomePage(user),
+                HomePage(user),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+
+          return CircularProgressIndicator();
+        }
       ),
     );
   }
