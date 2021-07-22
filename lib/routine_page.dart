@@ -58,7 +58,7 @@ class _RoutinePageState extends State<RoutinePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Center(child: DayHeader(widget.day)),
-                  MyReorderableList(list),
+                  MyReorderableList(widget.username, widget.day.dayName, list),
                   AddButton(widget.username, widget.day.dayName),
                 ])));
   }
@@ -141,8 +141,10 @@ class _DayHeaderState extends State<DayHeader> {
 }
 
 class MyReorderableList extends StatefulWidget {
+  final String username;
+  final String dayName;
   final List<Exercise> list;
-  MyReorderableList(this.list);
+  MyReorderableList(this.username, this.dayName, this.list);
 
   @override
   _MyReorderableListState createState() => _MyReorderableListState(list);
@@ -372,6 +374,15 @@ class _MyReorderableListState extends State<MyReorderableList> {
           return Dismissible(
             onDismissed: (DismissDirection direction) {
               setState(() {
+                var url = Uri.parse('http://10.0.2.2:8080/remove/exercise');
+                http.delete(
+                  url,
+                  body: json.encode({'username': widget.username, 'dayName': widget.dayName, 'index': index}),
+                  headers: {
+                    "content-type": "application/json",
+                    "accept": "application/json",
+                  },
+                );
                 list.removeAt(index);
               });
             },
