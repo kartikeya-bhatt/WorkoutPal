@@ -57,7 +57,7 @@ class _RoutinePageState extends State<RoutinePage> {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Center(child: DayHeader(widget.day)),
+                  Center(child: DayHeader(widget.username, widget.day)),
                   MyReorderableList(widget.username, widget.day.dayName, list),
                   AddButton(widget.username, widget.day.dayName),
                 ])));
@@ -65,8 +65,9 @@ class _RoutinePageState extends State<RoutinePage> {
 }
 
 class DayHeader extends StatefulWidget {
+  final String username;
   final Day day;
-  DayHeader(this.day);
+  DayHeader(this.username, this.day);
 
   @override
   _DayHeaderState createState() => _DayHeaderState(day);
@@ -125,6 +126,15 @@ class _DayHeaderState extends State<DayHeader> {
                 onChanged: (text) {
                   workoutName = text;
                   day.setWorkoutName(text);
+                  var url = Uri.parse('http://10.0.2.2:8080/edit/workoutName');
+                  http.post(
+                    url,
+                    body: json.encode({'username': widget.username, 'dayName': widget.day.dayName, 'workoutName': workoutName}),
+                    headers: {
+                      "content-type": "application/json",
+                      "accept": "application/json",
+                    },
+                  );
                   print(text);
                 },
                 textAlign: TextAlign.center,
