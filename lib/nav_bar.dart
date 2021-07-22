@@ -9,45 +9,20 @@ import 'User.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
+  final User user;
+  Home(this.user);
+
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _HomeState(user);
   }
 }
 
 class _HomeState extends State<Home> {
-  User user;
-  Future<User> futureUser;
+  final User user;
+  _HomeState(this.user);
 
-  List<Day> days = [];
-  final List<String> dayNames = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday"
-  ];
-
-  User myUser;
   int _selectedIndex = 0;
-
-  void initState() {
-    futureUser = fetchUser();
-    futureUser.then((result) {
-      setState(() {
-        user = result;
-      });
-    });
-
-    for (String name in dayNames) {
-      List<Exercise> exercises = [];
-      days.add(new Day(name, exercises));
-    }
-
-    myUser = new User("", "", days);
-  }
 
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
@@ -55,20 +30,6 @@ class _HomeState extends State<Home> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>()
   ];
-
-  Future<User> fetchUser() async {
-    var url = Uri.parse('http://10.0.2.2:8080/login');
-    final response = await http.post(
-      url,
-      body: json.encode({'username': 'cool_guy', 'password': 'password'}),
-      headers: {
-        "content-type": "application/json",
-        "accept": "application/json",
-      },
-    );
-
-    return User.fromJson(jsonDecode(response.body));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,11 +62,8 @@ class _HomeState extends State<Home> {
               title: Text('NA'),
             )
           ]),
-      body: FutureBuilder<User>(
-        future: futureUser,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return CommonBottomNavigationBar(
+      body:
+            CommonBottomNavigationBar(
               selectedIndex: _selectedIndex,
               navigatorKeys: _navigatorKeys,
               childrens: [
@@ -114,15 +72,8 @@ class _HomeState extends State<Home> {
                 HomePage(user),
                 HomePage(user),
               ],
-            );
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
-          }
-
-          return CircularProgressIndicator();
-        }
-      ),
-    );
+            ),
+      );
   }
 
   void onTabTapped(int index) {
