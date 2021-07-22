@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,15 +7,17 @@ import 'constants.dart';
 import 'package:flutter/services.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'User.dart';
+import 'package:http/http.dart' as http;
 
 StreamController<int> streamController = StreamController<int>.broadcast();
 
 class RoutinePage extends StatefulWidget {
+  final String username;
   final Day day;
   final Stream<int> stream;
 
 
-  RoutinePage(this.day, this.stream);
+  RoutinePage(this.username, this.day, this.stream);
 
   List<Exercise> getList() {
     return day.exercises;
@@ -25,7 +28,6 @@ class RoutinePage extends StatefulWidget {
 }
 
 class _RoutinePageState extends State<RoutinePage> {
-
   final List<Exercise> list;
   _RoutinePageState(this.list);
 
@@ -57,7 +59,7 @@ class _RoutinePageState extends State<RoutinePage> {
                 children: <Widget>[
                   Center(child: DayHeader(widget.day)),
                   MyReorderableList(list),
-                  AddButton()
+                  AddButton(widget.username, widget.day.dayName),
                 ])));
   }
 }
@@ -72,6 +74,7 @@ class DayHeader extends StatefulWidget {
 
 class _DayHeaderState extends State<DayHeader> {
 
+  List<String> list;
   String dayName;
   String workoutName;
 
@@ -79,6 +82,8 @@ class _DayHeaderState extends State<DayHeader> {
 
   final Day day;
   _DayHeaderState(this.day) {
+
+
     dayName = day.dayName;
     workoutName = day.workoutName;
 
@@ -427,6 +432,9 @@ class _MyReorderableListState extends State<MyReorderableList> {
 }
 
 class AddButton extends StatefulWidget {
+  final String username;
+  final String dayName;
+  AddButton(this.username, this.dayName);
   _AddButtonState createState() => _AddButtonState();
 }
 
@@ -441,6 +449,15 @@ class _AddButtonState extends State<AddButton> {
         onTap: () {
           setState(() {
             streamController.add(1);
+            var url = Uri.parse('http://10.0.2.2:8080/add/exercise');
+            http.put(
+              url,
+              body: json.encode({'username': widget.username, 'dayName': widget.dayName}),
+              headers: {
+                "content-type": "application/json",
+                "accept": "application/json",
+              },
+            );
           });
         },
         onTapDown: (TapDownDetails d) {

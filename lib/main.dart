@@ -53,15 +53,6 @@ class AuthService with ChangeNotifier {
     currentUser = User.fromJson(jsonDecode(response.body));
     notifyListeners();
     return response;
-
-/*    if (password == 'password') {
-      this.currentUser = {'name': name};
-      notifyListeners();
-      return Future.value(currentUser);
-    } else {
-      this.currentUser = null;
-      return Future.value(null);
-    }*/
   }
 }
 

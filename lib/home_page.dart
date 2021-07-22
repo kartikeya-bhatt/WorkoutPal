@@ -24,7 +24,7 @@ class HomePage extends StatelessWidget {
                 Spacer(),
                 Center(child: Header()),
                 Spacer(),
-                Center(child: ButtonGroup(days)),
+                Center(child: ButtonGroup(days, myUser.username)),
                 Spacer()
               ])),
     );
@@ -33,7 +33,8 @@ class HomePage extends StatelessWidget {
 
 class ButtonGroup extends StatefulWidget {
   final List<Day> days;
-  ButtonGroup(this.days);
+  final String username;
+  ButtonGroup(this.days, this.username);
 
   @override
   _ButtonGroupState createState() => _ButtonGroupState();
@@ -46,13 +47,13 @@ class _ButtonGroupState extends State<ButtonGroup> {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            CustomButton(widget.days[0]),
-            CustomButton(widget.days[1]),
-            CustomButton(widget.days[2]),
-            CustomButton(widget.days[3]),
-            CustomButton(widget.days[4]),
-            CustomButton(widget.days[5]),
-            CustomButton(widget.days[6]),
+            CustomButton(widget.days[0], widget.username),
+            CustomButton(widget.days[1], widget.username),
+            CustomButton(widget.days[2], widget.username),
+            CustomButton(widget.days[3], widget.username),
+            CustomButton(widget.days[4], widget.username),
+            CustomButton(widget.days[5], widget.username),
+            CustomButton(widget.days[6], widget.username),
           ]),
     );
   }
@@ -60,7 +61,8 @@ class _ButtonGroupState extends State<ButtonGroup> {
 
 class CustomButton extends StatefulWidget {
   final Day day;
-  CustomButton(this.day);
+  String username;
+  CustomButton(this.day, this.username);
 
   @override
   _CustomButtonState createState() => _CustomButtonState(day);
@@ -80,7 +82,7 @@ class _CustomButtonState extends State<CustomButton> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => RoutinePage(day, streamController.stream)),
+            MaterialPageRoute(builder: (context) => RoutinePage(widget.username, day, streamController.stream)),
           );
         },
         onTapDown: (TapDownDetails d) {
