@@ -78,4 +78,11 @@ class Exercise {
         json['weight'] as int
         );
   }
+
+  Map toJson() => {
+    'name': name,
+    'reps': reps,
+    'sets': sets,
+    'weight': weight
+  };
 }

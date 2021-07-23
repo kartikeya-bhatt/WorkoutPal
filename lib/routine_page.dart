@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -341,6 +342,15 @@ class _MyReorderableListState extends State<MyReorderableList> {
                 onPressed: () {
                   setState(() {
                     if(isChanged) {
+                      var url = Uri.parse('http://10.0.2.2:8080/edit/exercise');
+                      http.post(
+                        url,
+                        body: json.encode({'username': widget.username, 'dayName': widget.dayName, 'index': index, 'exerciseName': name, 'reps': reps, 'sets': sets, 'weight': weight}),
+                        headers: {
+                          "content-type": "application/json",
+                          "accept": "application/json",
+                        },
+                      );
                       list[index] = new Exercise(name, reps, sets, weight);
                     }
                     Navigator.pop(context);
@@ -377,6 +387,19 @@ class _MyReorderableListState extends State<MyReorderableList> {
             }
             final Exercise item = list.removeAt(oldIndex);
             list.insert(newIndex, item);
+            var jsonInfo = "\"username\":\""+ widget.username + "\",\"dayName\":\"" + widget.dayName + "\",\"exerciseList\":";
+            var jsonList = jsonEncode(list.map((i) => i.toJson()).toList()).toString();
+            var jsonConcat = jsonInfo + jsonList;
+            print(jsonConcat);
+            var url = Uri.parse('http://10.0.2.2:8080/reorder');
+            http.post(
+              url,
+              body: "{" + jsonConcat + "}",
+              headers: {
+                "content-type": "application/json",
+                "accept": "application/json",
+              },
+            );
           });
         },
         itemCount: list.length,
