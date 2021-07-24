@@ -18,7 +18,8 @@ void main() => runApp(
     );
 
 class AuthService with ChangeNotifier {
-  User currentUser;
+
+  http.Response currentUser;
 
   AuthService() {
     currentUser = null;
@@ -41,7 +42,7 @@ class AuthService with ChangeNotifier {
 
   // logs in the user if password matches
   Future loginUser(String name, String password) async {
-    var url = Uri.parse('http://10.0.2.2:8080/login');
+    var url = Uri.parse('http://' + elasticIp + ':8080/login');
     final response = await http.post(
       url,
       body: json.encode({'username': name, 'password': password}),
@@ -50,7 +51,7 @@ class AuthService with ChangeNotifier {
         "accept": "application/json",
       },
     );
-    currentUser = User.fromJson(jsonDecode(response.body));
+    currentUser = response;
     notifyListeners();
     return response;
   }
@@ -67,7 +68,11 @@ class MyApp extends StatelessWidget {
         future: Provider.of<AuthService>(context).getUser(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return snapshot.hasData ? Home(snapshot.data) : CreateAccount();
+            if(snapshot.hasData && snapshot.data.statusCode == 200) {
+              return Home(User.fromJson(jsonDecode(snapshot.data.body)));
+            }
+            else
+              return CreateAccount();
           } else {
             return LoadingCircle();
           }

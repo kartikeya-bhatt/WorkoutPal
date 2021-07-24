@@ -25,7 +25,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController passwordTextController = TextEditingController();
 
   Future<User> fetchUser() async {
-    var url = Uri.parse('http://10.0.2.2:8080/login');
+    var url = Uri.parse('http://' + elasticIp + ':8080/login');
     final response = await http.post(
       url,
       body: json.encode({'username': 'cool_guy', 'password': 'password'}),

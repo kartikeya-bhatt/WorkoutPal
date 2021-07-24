@@ -127,7 +127,7 @@ class _DayHeaderState extends State<DayHeader> {
                 onChanged: (text) {
                   workoutName = text;
                   day.setWorkoutName(text);
-                  var url = Uri.parse('http://10.0.2.2:8080/edit/workoutName');
+                  var url = Uri.parse('http://' + elasticIp + ':8080/edit/workoutName');
                   http.post(
                     url,
                     body: json.encode({'username': widget.username, 'dayName': widget.day.dayName, 'workoutName': workoutName}),
@@ -342,7 +342,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                 onPressed: () {
                   setState(() {
                     if(isChanged) {
-                      var url = Uri.parse('http://10.0.2.2:8080/edit/exercise');
+                      var url = Uri.parse('http://' + elasticIp + ':8080/edit/exercise');
                       http.post(
                         url,
                         body: json.encode({'username': widget.username, 'dayName': widget.dayName, 'index': index, 'exerciseName': name, 'reps': reps, 'sets': sets, 'weight': weight}),
@@ -391,7 +391,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
             var jsonList = jsonEncode(list.map((i) => i.toJson()).toList()).toString();
             var jsonConcat = jsonInfo + jsonList;
             print(jsonConcat);
-            var url = Uri.parse('http://10.0.2.2:8080/reorder');
+            var url = Uri.parse('http://' + elasticIp + ':8080/reorder');
             http.post(
               url,
               body: "{" + jsonConcat + "}",
@@ -407,7 +407,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
           return Dismissible(
             onDismissed: (DismissDirection direction) {
               setState(() {
-                var url = Uri.parse('http://10.0.2.2:8080/remove/exercise');
+                var url = Uri.parse('http://' + elasticIp + ':8080/remove/exercise');
                 http.delete(
                   url,
                   body: json.encode({'username': widget.username, 'dayName': widget.dayName, 'index': index}),
@@ -493,7 +493,7 @@ class _AddButtonState extends State<AddButton> {
         onTap: () {
           setState(() {
             streamController.add(1);
-            var url = Uri.parse('http://10.0.2.2:8080/add/exercise');
+            var url = Uri.parse('http://' + elasticIp + ':8080/add/exercise');
             http.put(
               url,
               body: json.encode({'username': widget.username, 'dayName': widget.dayName}),
