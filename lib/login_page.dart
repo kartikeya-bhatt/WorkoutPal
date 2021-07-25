@@ -76,7 +76,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
-                              fontFamily: 'Noto Sans JP',
+                              fontFamily: 'Ubuntu',
                               fontWeight: FontWeight.bold,
                             ),
                           )),
@@ -108,7 +108,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.white70,
-                              fontFamily: 'Noto Sans JP',
+                              fontFamily: 'Ubuntu',
                               fontWeight: FontWeight.w400,
                             ),
                             decoration: InputDecoration(
@@ -122,7 +122,7 @@ class _CreateAccountState extends State<CreateAccount> {
                               hintStyle: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white70,
-                                fontFamily: 'Noto Sans JP',
+                                fontFamily: 'Ubuntu',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -139,7 +139,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
-                              fontFamily: 'Noto Sans JP',
+                              fontFamily: 'Ubuntu',
                               fontWeight: FontWeight.bold,
                             ),
                           )),
@@ -171,7 +171,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.white70,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -182,7 +182,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             hintStyle: TextStyle(
                               fontSize: 15,
                               color: Colors.white70,
-                              fontFamily: 'Noto Sans JP',
+                              fontFamily: 'Ubuntu',
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -193,7 +193,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         child: Text(
                           widget.error,
                           style: TextStyle(
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Color(0xFFE57373),
@@ -225,7 +225,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             'SUBMIT',
                             style: TextStyle(
                               fontSize: 20,
-                              fontFamily: 'Noto Sans JP',
+                              fontFamily: 'Ubuntu',
                               letterSpacing: 1.6,
                               color: Color(0xFF478DE0),
                               fontWeight: FontWeight.w300,
@@ -242,7 +242,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         child: Text(
                           '- OR -',
                           style: TextStyle(
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                             fontWeight: FontWeight.w300,
                             fontSize: 15,
                             color: white,
@@ -262,7 +262,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           'Create an account',
                           style: TextStyle(
                             fontSize: 15,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                             color: white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -290,7 +290,7 @@ class Header extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 60,
                   color: white,
-                  fontFamily: 'Noto Sans JP',
+                  fontFamily: 'Ubuntu',
                 ),
                 children: <TextSpan>[
                   TextSpan(text: 'Pal', style: TextStyle(color: yellow))
@@ -301,7 +301,7 @@ class Header extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 color: white,
-                fontFamily: 'Noto Sans JP',
+                fontFamily: 'Ubuntu',
               ))
         ],
       ),

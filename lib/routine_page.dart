@@ -116,7 +116,7 @@ class _DayHeaderState extends State<DayHeader> {
                 style: TextStyle(
                   fontSize: 50,
                   color: white,
-                  fontFamily: 'Noto Sans JP',
+                  fontFamily: 'Ubuntu',
                 ),
               ),
             ),
@@ -152,7 +152,7 @@ class _DayHeaderState extends State<DayHeader> {
                 style: TextStyle(
                   fontSize: 24,
                   color: white,
-                  fontFamily: 'Noto Sans JP',
+                  fontFamily: 'Ubuntu',
                 ))
           ],
         ),
@@ -219,7 +219,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
               ),
               style: TextStyle(
                 fontSize: 24  ,
-                fontFamily: 'Noto Sans JP',
+                fontFamily: 'Ubuntu',
               ),
               textAlign: TextAlign.center,
             ),
@@ -232,7 +232,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                       Text('Sets:',
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                           )),
                       Expanded(
                         child: TextFormField(
@@ -242,7 +242,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                           ),
                           onChanged: (value) {
                             setState(() {
@@ -270,7 +270,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                       Text('Reps:',
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                           )),
                       Expanded(
                         child: TextFormField(
@@ -280,7 +280,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           maxLength: 3,
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                           ),
                           textAlign: TextAlign.end,
                           onChanged: (value) {
@@ -309,7 +309,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                       Text('Weight:',
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                           )),
                       Expanded(
                         child: TextFormField(
@@ -319,7 +319,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                           maxLength: 3,
                           style: TextStyle(
                             fontSize: 20,
-                            fontFamily: 'Noto Sans JP',
+                            fontFamily: 'Ubuntu',
                           ),
                           textAlign: TextAlign.end,
                           onChanged: (value) {
@@ -448,7 +448,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                         style: TextStyle(
                           fontSize: 26,
                           color: blue,
-                          fontFamily: 'Noto Sans JP',
+                          fontFamily: 'Ubuntu',
                           fontWeight: FontWeight.bold,
                         )),
                     subtitle: Text(list[index].sets.toString() + " x " + list[index].reps.toString() + " at " + list[index].weight.toString() + " lbs.",
@@ -457,7 +457,7 @@ class _MyReorderableListState extends State<MyReorderableList> {
                         style: TextStyle(
                           fontSize: 20,
                           color: blue,
-                          fontFamily: 'Noto Sans JP',
+                          fontFamily: 'Ubuntu',
                         )),
                     trailing: !mounted
                         ? Icon(

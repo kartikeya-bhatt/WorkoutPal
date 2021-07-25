@@ -111,11 +111,12 @@ class _CustomButtonState extends State<CustomButton> {
           });
         },
         child: Container(
+          alignment: Alignment.center,
           width: MediaQuery.of(context).size.width * 0.75,
           height: MediaQuery.of(context).size.height * 0.055,
           padding: EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-            color: Color(0xFF6CA8F1),
+            color: white,
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(
             color: isHeld ? white : Color(0xFF6CA8F1),
@@ -129,14 +130,14 @@ class _CustomButtonState extends State<CustomButton> {
               ),
             ],
           ),
-                child: Text(day.dayName.toUpperCase(),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'OpenSans',
-                      letterSpacing: 1.6,
-                      color: white,
-                      fontWeight: FontWeight.w400,
+          child: Text(day.dayName.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'Ubuntu',
+              letterSpacing: 1.6,
+              color: blue,
+              fontWeight: FontWeight.w300,
                     ),
                   ),
         ),

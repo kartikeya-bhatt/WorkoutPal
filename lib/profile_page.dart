@@ -45,7 +45,7 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
-                    fontFamily: 'Noto Sans JP',
+                    fontFamily: 'Ubuntu',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -53,7 +53,7 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
-                    fontFamily: 'Noto Sans JP',
+                    fontFamily: 'Ubuntu',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -84,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                       'LOG OUT',
                       style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'Noto Sans JP',
+                        fontFamily: 'Ubuntu',
                         letterSpacing: 1.6,
                         color: Color(0xFF478DE0),
                         fontWeight: FontWeight.w300,
@@ -117,7 +117,7 @@ class Header extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 60,
                   color: white,
-                  fontFamily: 'Noto Sans JP',
+                  fontFamily: 'Ubuntu',
                 ),
                 children: <TextSpan>[
                   TextSpan(text: 'Pal', style: TextStyle(color: yellow))
@@ -128,7 +128,7 @@ class Header extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 color: white,
-                fontFamily: 'Noto Sans JP',
+                fontFamily: 'Ubuntu',
               ))
         ],
       ),
