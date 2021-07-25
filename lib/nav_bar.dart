@@ -6,6 +6,7 @@ import 'constants.dart';
 import 'common_navigation_bar.dart';
 import 'login_page.dart';
 import 'User.dart';
+import 'profile_page.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
@@ -67,7 +68,7 @@ class _HomeState extends State<Home> {
               selectedIndex: _selectedIndex,
               navigatorKeys: _navigatorKeys,
               childrens: [
-                HomePage(user),
+                ProfilePage(user),
                 HomePage(user),
                 HomePage(user),
                 HomePage(user),
