@@ -33,18 +33,19 @@ class ProfilePage extends StatelessWidget {
                   Color(0xFF398AE5),
                 ],
               )),
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: h * .06),
                 Center(child: Header()),
-                SizedBox(height: h * 0.05),
+                SizedBox(height: h * .2),
                 Text('Currently Signed in as: ',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
-                    fontFamily: 'Ubuntu',
+                    fontFamily: 'Noto Sans JP',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -52,12 +53,12 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
-                    fontFamily: 'Ubuntu',
+                    fontFamily: 'Noto Sans JP',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
 
-                SizedBox(height: h * 0.05),
+                SizedBox(height: h * 0.1),
                 Container(
                   constraints: BoxConstraints.tightFor(
                       width: w * 0.6, height: h * 0.05),
@@ -83,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                       'LOG OUT',
                       style: TextStyle(
                         fontSize: 20,
-                        fontFamily: 'OpenSans',
+                        fontFamily: 'Noto Sans JP',
                         letterSpacing: 1.6,
                         color: Color(0xFF478DE0),
                         fontWeight: FontWeight.w300,
@@ -116,7 +117,7 @@ class Header extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 60,
                   color: white,
-                  fontFamily: 'OpenSans',
+                  fontFamily: 'Noto Sans JP',
                 ),
                 children: <TextSpan>[
                   TextSpan(text: 'Pal', style: TextStyle(color: yellow))
@@ -127,7 +128,7 @@ class Header extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 color: white,
-                fontFamily: 'OpenSans',
+                fontFamily: 'Noto Sans JP',
               ))
         ],
       ),

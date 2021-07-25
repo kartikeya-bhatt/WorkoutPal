@@ -16,7 +16,17 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-          color: blue,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Color(0xFF73AEF5),
+                  Color(0xFF61A4F1),
+                  Color(0xFF478DE0),
+                  Color(0xFF398AE5),
+                ],
+              )),
           alignment: Alignment.center,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -105,28 +115,30 @@ class _CustomButtonState extends State<CustomButton> {
           height: MediaQuery.of(context).size.height * 0.055,
           padding: EdgeInsets.all(5.0),
           decoration: BoxDecoration(
-              color: white,
-              borderRadius: BorderRadius.circular(25.0),
-              border: Border.all(
-                color: yellow,
-                width: isHeld ? 3.0 : 0.0,
+            color: Color(0xFF6CA8F1),
+            borderRadius: BorderRadius.circular(10.0),
+            border: Border.all(
+            color: isHeld ? white : Color(0xFF6CA8F1),
+            width: isHeld ? 2.0 : 0.0,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                blurRadius: 10.0,
+                offset: Offset(0, 2),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.4),
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  offset: isHeld ? Offset(0, 0) : Offset(0, 3),
-                )
-              ]),
-          child: FittedBox(
-              fit: BoxFit.fitHeight,
-              child: Text(day.dayName,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: blue,
-                    fontFamily: 'Ubuntu',
-                  ))),
+            ],
+          ),
+                child: Text(day.dayName.toUpperCase(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'OpenSans',
+                      letterSpacing: 1.6,
+                      color: white,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
         ),
       ),
     );
