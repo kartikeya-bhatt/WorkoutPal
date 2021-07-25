@@ -68,12 +68,14 @@ class MyApp extends StatelessWidget {
         future: Provider.of<AuthService>(context).getUser(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            if(snapshot.hasData && snapshot.data.statusCode == 200) {
-              return Home(User.fromJson(jsonDecode(snapshot.data.body)));
+            if(snapshot.hasData) {
+              if(snapshot.data.statusCode == 200)
+                return Home(User.fromJson(jsonDecode(snapshot.data.body)));
+              return CreateAccount("Error: Username or Password incorrect");
             }
-            else
-              return CreateAccount();
-          } else {
+            return CreateAccount("");
+          }
+          else {
             return LoadingCircle();
           }
         },

@@ -13,6 +13,9 @@ import 'nav_bar.dart';
 import 'package:http/http.dart' as http;
 
 class CreateAccount extends StatefulWidget {
+  final String error;
+  CreateAccount(this.error);
+
   @override
   _CreateAccountState createState() => _CreateAccountState();
 }
@@ -188,7 +191,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       SizedBox(height: h * .025),
                       Container(
                         child: Text(
-                          'Error: Username and Password do not match',
+                          widget.error,
                           style: TextStyle(
                             fontFamily: 'Ubuntu',
                             fontWeight: FontWeight.bold,
