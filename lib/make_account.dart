@@ -61,7 +61,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
-                              fontFamily: 'Ubuntu',
+                              fontFamily: 'Noto Sans JP',
                               fontWeight: FontWeight.bold,
                             ),
                           )),
@@ -93,7 +93,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.white70,
-                              fontFamily: 'Ubuntu',
+                              fontFamily: 'Noto Sans JP',
                               fontWeight: FontWeight.w400,
                             ),
                             decoration: const InputDecoration(
@@ -107,7 +107,7 @@ class _MakeAccountState extends State<MakeAccount> {
                               hintStyle: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white70,
-                                fontFamily: 'Ubuntu',
+                                fontFamily: 'Noto Sans JP',
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -124,7 +124,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15,
-                              fontFamily: 'Ubuntu',
+                              fontFamily: 'Noto Sans JP',
                               fontWeight: FontWeight.bold,
                             ),
                           )),
@@ -156,7 +156,7 @@ class _MakeAccountState extends State<MakeAccount> {
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.white70,
-                            fontFamily: 'Ubuntu',
+                            fontFamily: 'Noto Sans JP',
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -167,7 +167,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             hintStyle: TextStyle(
                               fontSize: 15,
                               color: Colors.white70,
-                              fontFamily: 'Ubuntu',
+                              fontFamily: 'Noto Sans JP',
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -183,7 +183,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
-                              fontFamily: 'Ubuntu',
+                              fontFamily: 'Noto Sans JP',
                               fontWeight: FontWeight.bold,
                             ),
                           )),
@@ -215,7 +215,7 @@ class _MakeAccountState extends State<MakeAccount> {
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.white70,
-                            fontFamily: 'Ubuntu',
+                            fontFamily: 'Noto Sans JP',
                             fontWeight: FontWeight.bold,
                           ),
                           decoration: const InputDecoration(
@@ -226,7 +226,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             hintStyle: TextStyle(
                               fontSize: 15,
                               color: Colors.white70,
-                              fontFamily: 'Ubuntu',
+                              fontFamily: 'Noto Sans JP',
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -237,7 +237,7 @@ class _MakeAccountState extends State<MakeAccount> {
                         child: Text(
                           error,
                           style: TextStyle(
-                            fontFamily: 'Ubuntu',
+                            fontFamily: 'Noto Sans JP',
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                             color: Color(0xFFE57373),
@@ -300,7 +300,7 @@ class _MakeAccountState extends State<MakeAccount> {
                             'SUBMIT',
                             style: TextStyle(
                               fontSize: 20,
-                              fontFamily: 'OpenSans',
+                              fontFamily: 'Noto Sans JP',
                               letterSpacing: 1.6,
                               color: Color(0xFF478DE0),
                               fontWeight: FontWeight.w300,
@@ -332,7 +332,7 @@ class Header extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 60,
                   color: white,
-                  fontFamily: 'Ubuntu',
+                  fontFamily: 'Noto Sans JP',
                 ),
                 children: <TextSpan>[
                   TextSpan(text: 'Pal', style: TextStyle(color: yellow))
@@ -343,7 +343,7 @@ class Header extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 color: white,
-                fontFamily: 'Ubuntu',
+                fontFamily: 'Noto Sans JP',
               ))
         ],
       ),
