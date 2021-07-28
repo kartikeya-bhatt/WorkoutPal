@@ -1,16 +1,16 @@
-# frontend
 
-Frontend UI for WorkoutPal
+## WorkoutPal
+I designed this app in order to track my workouts at the gym over a 7 day split! Record weights/sets/reps of custom workouts.
 
-## Getting Started
+Here is a rough outline of what I worked on:
 
-This project is a starting point for a Flutter application.
+- Built the frontend of the app using Flutter SDK
+- Implemented Http requests in JSON using Spring Boot 
+- Stored the data using MongoDB to enable persistence 
+- Hosted the backend server on the cloud with an AWS EC2 instance
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
