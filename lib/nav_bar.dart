@@ -27,8 +27,6 @@ class _HomeState extends State<Home> {
 
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>()
   ];
 
@@ -54,14 +52,6 @@ class _HomeState extends State<Home> {
             BottomNavigationBarItem(
               icon: new Icon(Icons.home),
               title: Text('NA'),
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.trending_up),
-              title: Text('NA'),
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.timer),
-              title: Text('NA'),
             )
           ]),
       body:
@@ -70,8 +60,6 @@ class _HomeState extends State<Home> {
               navigatorKeys: _navigatorKeys,
               childrens: [
                 ProfilePage(user),
-                HomePage(user),
-                HomePage(user),
                 HomePage(user),
               ],
             ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:frontend/home_page.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/routine_page.dart';
@@ -98,6 +99,9 @@ class _CreateAccountState extends State<CreateAccount> {
                         alignment: Alignment.centerLeft,
                         child: SingleChildScrollView(
                           child: TextFormField(
+                            inputFormatters: [
+                              FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                            ],
                             controller: nameTextController,
                             onChanged: (value) {
                               setState(() {
@@ -160,6 +164,9 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: TextFormField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.deny(RegExp(r"\s")),
+                          ],
                           controller: passwordTextController,
                           onChanged: (value) {
                             setState(() {
