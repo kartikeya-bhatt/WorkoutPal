@@ -1,6 +1,6 @@
 
 ## WorkoutPal
-I designed this app in order to track my workouts at the gym over a 7 day split! Records weights/sets/reps of custom workouts.
+I designed this app in order to track my workouts at the gym over a 7 day split! Records weights/sets/reps of custom workouts, users can make their own accounts!
 
 Here is a rough outline of what I worked on:
 
