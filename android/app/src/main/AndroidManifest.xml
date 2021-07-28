@@ -9,7 +9,7 @@
 
 
     <application
-        android:label="WorkoutPal"
+        android:label="Workout Pal"
         android:icon="@mipmap/ic_launcher">
 
 
